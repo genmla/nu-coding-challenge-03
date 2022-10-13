@@ -5,20 +5,22 @@ var charSpecial;
 var charNumber;
 var charUpper;
 var charLower;
+var optionsSelected;
 
 // !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 
- pwSpec = ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'] 
- pwNumb = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
- pwUp = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
- pwLow = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+var pwSpec = ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'] 
+var pwNumb = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+var pwUp = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+var pwLow = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
- pwGen = {
-  charSpecial: pwSpec,
-  charNumber: pwNumb, 
-  charUpper: pwUp, 
-  charLower: pwLow
- }
+var writeSpec = pwSpec[Math.floor(Math.random()*pwSpec.length)]
+
+var writeNumber = pwNumb[Math.floor(Math.random()*pwNumb.length)]
+
+var writeUpper = pwUp[Math.floor(Math.random()*pwUp.length)]
+ 
+var writeLower = pwLow[Math.floor(Math.random()*pwLow.length)]
 
 var CharSetFuction = function () {
   charSpecial = window.confirm("Click \"Okay\" to include special characters, otherwise click \"Cancel\"")
@@ -54,52 +56,64 @@ var CharSetFuction = function () {
   }
 }
 
+var generatePassword = function () {
+  
+
+
+
+(writeSpec.repeat((charLength/optionsSelected)*charSpecial)+writeNumber.repeat((charLength/optionsSelected)*charNumber)+writeUpper.repeat((charLength/optionsSelected)*charUpper)+writeLower.repeat((charLength/optionsSelected)*charLower))  
+}
 // if options are deselected, we do not want to include them in generation
-// we want to make the password as long as the character length value
+// we want to make the password as long as the character length value, need to fix this for numbers not divided easily divided by options selected
+//
 
-// var generatePassword = function () {
-//   if (!charSpecial) {
-
-//   }
-//   if (!charNumber) {
-
-//   }
-//   if (!charUpper) {
-
-//   }
-//   if (!charLower) {
-
-//   }
-
-//   pwGen[Math.floor(Math.random() * charLength)]
-// }
 // Write password to the #password input
 function writePassword() {
   charLength = window.prompt("Pleae enter the number of characters; passwords must be at least 8 and no more than 128 characters.");
 
-  if (charLength >= 8 && charLength <= 128) {
+  charLength = Number(charLength)
+
+    if (charLength >= 8 && charLength <= 128) {
     window.alert("Your password will be " + charLength + " characters.")
 
     window.alert("Please confirm if you want special characters, numbers, uppercase letters, and lowercase letters included in your password. Your password must include at least one set.")
 
     CharSetFuction()
 
-    if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
-      window.alert("Your password must include at least one set of special characters, numbers, uppercase letters or lowercase letters.")
-      
-      var CharSetAgain = window.confirm("Click \"Okay\" to select at least once character set. Otherswise, cancel password generation.")
-        if (CharSetAgain) {
-          CharSetFuction()
+    charSpecial = Number(charSpecial)
+    charNumber = Number(charNumber)
+    charUpper = Number(charUpper)
+    charLower = Number(charLower)
 
-          if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
-            window.alert("Your password must include at least one character set. Click \"Generate Password\" to try again.")
-          }  
-        }
-        else if (!CharSetAgain) {
-          generateBtn.addEventListener("click", writePassword)
-        }
-    }    
-  }
+    optionsSelected = (charSpecial + charNumber + charUpper + charLower)
+
+    console.log((charLength % optionsSelected) + (Math.floor(charLength/optionsSelected)))
+ 
+    
+    console.log(writeSpec.repeat((charLength/optionsSelected)*charSpecial)+writeNumber.repeat((charLength/optionsSelected)*charNumber)+writeUpper.repeat((charLength/optionsSelected)*charUpper)+writeLower.repeat((charLength/optionsSelected)*charLower))
+
+    for (var i =0; i<(charLength/optionsSelected); i++) {
+      console.log(pwSpec [i]) 
+    }
+
+    // if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
+    //   window.alert("Your password must include at least one set of special characters, numbers, uppercase letters or lowercase letters.")
+      
+    //   var CharSetAgain = window.confirm("Click \"Okay\" to select at least once character set. Otherswise, cancel password generation.")
+    //     if (CharSetAgain) {
+    //       CharSetFuction()
+
+    //       if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
+    //         window.alert("Your password must include at least one character set. Click \"Generate Password\" to try again.")
+    //       }  
+    //     }
+        
+    //     else if (!CharSetAgain) {
+    //       generateBtn.addEventListener("click", writePassword)
+    //     }
+    // } 
+    generatePassword()
+    }
   else if (!charLength) {
     generateBtn.addEventListener("click", writePassword);
   }
@@ -112,14 +126,19 @@ function writePassword() {
       charLength = window.confirm(charLength + " is an invalid value. Click \"Generate Password\" to try again.")
     }
   }
- 
+
   var password = generatePassword()
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
+// Original
+// function writePassword() {
+//   var password = generatePassword();
+//   var passwordText = document.querySelector("#password");
 
+//   passwordText.value = password;
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
