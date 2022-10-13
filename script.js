@@ -57,6 +57,7 @@ var CharSetFuction = function () {
 }
 
 var generatePassword = function () {
+
   if (((charLength % optionsSelected) > 0) && (charSpecial > 0)) {
     console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeSpec.repeat(charLength % optionsSelected)))
   }
@@ -68,7 +69,6 @@ var generatePassword = function () {
   }
   else if (((charLength % optionsSelected) > 0) && (charLower > 0)) {
     console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeLower.repeat(charLength % optionsSelected)))
-  }  
 }
 
 // Write password to the #password input
@@ -137,12 +137,5 @@ function writePassword() {
   passwordText.value = password;
 
 }
-// Original
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
 
-//   passwordText.value = password;
-
-// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
