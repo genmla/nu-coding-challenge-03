@@ -57,15 +57,19 @@ var CharSetFuction = function () {
 }
 
 var generatePassword = function () {
-  
-
-
-
-(writeSpec.repeat((charLength/optionsSelected)*charSpecial)+writeNumber.repeat((charLength/optionsSelected)*charNumber)+writeUpper.repeat((charLength/optionsSelected)*charUpper)+writeLower.repeat((charLength/optionsSelected)*charLower))  
+  if (((charLength % optionsSelected) > 0) && (charSpecial > 0)) {
+    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeSpec.repeat(charLength % optionsSelected)))
+  }
+  else if (((charLength % optionsSelected) > 0) && (charNumber > 0)) {
+    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeNumber.repeat(charLength % optionsSelected)))
+  }
+  else if (((charLength % optionsSelected) > 0) && (charUpper > 0)) {
+    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeUpper.repeat(charLength % optionsSelected)))
+  }
+  else if (((charLength % optionsSelected) > 0) && (charLower > 0)) {
+    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeLower.repeat(charLength % optionsSelected)))
+  }  
 }
-// if options are deselected, we do not want to include them in generation
-// we want to make the password as long as the character length value, need to fix this for numbers not divided easily divided by options selected
-//
 
 // Write password to the #password input
 function writePassword() {
