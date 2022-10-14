@@ -16,7 +16,7 @@ This site allows a user to generate a password comprising a random selection of 
 
 ![screenshot of the deployed password creation application](/assets/Project3%20Screen.jpg)
 
-URL: 
+URL: https://genmla.github.io/nu-coding-challenge-03/
 
 ## Credits
 
