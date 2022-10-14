@@ -61,13 +61,33 @@ function writePassword() {
     window.alert("Please confirm if you want special characters, numbers, uppercase letters, and lowercase letters included in your password. Your password must include at least one set.")
 
     charSpecial = window.confirm("Click \"Okay\" to include special characters, otherwise click \"Cancel\"")
-
+    if (charSpecial) {
+      window.alert("Your password will include special characters")
+    }
+    else {
+      window.alert("Your password will not include special characters")
+    }
     charNumber = window.confirm("Click \"Okay\" to include numbers, otherwise click \"Cancel\"")
-
+    if (charNumber) {
+      window.alert("Your password will include numbers")
+    }
+    else {
+      window.alert("Your password will not include numbers")
+    }
     charUpper = window.confirm("Click \"Okay\" to include uppercase letters, otherwise click \"Cancel\"")
-
+    if (charUpper) {
+      window.alert("Your password will include uppercase characters")
+    }
+    else {
+      window.alert("Your password will not include uppercase characters")
+    }
     charLower = window.confirm("Click \"Okay\" to include lowercase letters, otherwise click \"Cancel\"")
-
+    if (charLower) {
+      window.alert("Your password will include lowercase characters")
+    }
+    else {
+      window.alert("Your password will not include lowercase characters")
+    }
     if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
       window.alert("Your password must include at least one set of special characters, numbers, uppercase letters or lowercase letters. Click \"Generate Password\" to try again.")
     }
@@ -82,11 +102,11 @@ function writePassword() {
     generatePassword()
     var password = generatePassword()
     var passwordText = document.querySelector("#password");
-  
+
     passwordText.value = password;
   }
   else if (!charLength) {
-    generateBtn.addEventListener("click", writePassword);
+    window.alert("You have chosen to not generate a password.")
   }
   else {
     window.alert(charLength + " is an invalid value. Click \"Generate Password\" to try again.")
