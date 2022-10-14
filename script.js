@@ -28,14 +28,12 @@ var writeLower = pwLow[Math.floor(Math.random() * pwLow.length)]
 var generatePassword = function () {
 
   genSpec = (writeSpec.repeat((charLength / optionsSelected) * charSpecial))
-  console.log(genSpec)
   genNumber = (writeNumber.repeat((charLength / optionsSelected) * charNumber))
   genUpper = (writeUpper.repeat((charLength / optionsSelected) * charUpper))
   genLower = (writeLower.repeat((charLength / optionsSelected) * charLower))
 
   if (((charLength % optionsSelected) > 0) && (charSpecial > 0)) {
     genSpec = genSpec + (writeSpec.repeat(charLength % optionsSelected))
-    console.log(genSpec)
   }
   else if (((charLength % optionsSelected) > 0) && (charNumber > 0)) {
     genNumber = genNumber + (writeNumber.repeat(charLength % optionsSelected))
@@ -82,15 +80,17 @@ function writePassword() {
     optionsSelected = (charSpecial + charNumber + charUpper + charLower)
 
     generatePassword()
+    var password = generatePassword()
+    var passwordText = document.querySelector("#password");
+  
+    passwordText.value = password;
+  }
+  else if (!charLength) {
+    generateBtn.addEventListener("click", writePassword);
   }
   else {
     window.alert(charLength + " is an invalid value. Click \"Generate Password\" to try again.")
   }
-
-  var password = generatePassword()
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
 }
 
 generateBtn.addEventListener("click", writePassword);
