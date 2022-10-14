@@ -6,6 +6,11 @@ var charNumber;
 var charUpper;
 var charLower;
 var optionsSelected;
+var genSpec;
+var genNumber;
+var genUpper;
+var genLower;
+
 
 var pwSpec = ['!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']
 var pwNumb = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -20,68 +25,54 @@ var writeUpper = pwUp[Math.floor(Math.random() * pwUp.length)]
 
 var writeLower = pwLow[Math.floor(Math.random() * pwLow.length)]
 
-var CharSetFuction = function () {
-  charSpecial = window.confirm("Click \"Okay\" to include special characters, otherwise click \"Cancel\"")
-  if (charSpecial) {
-    window.alert("Your password will include special characters")
-  }
-  else {
-    window.alert("Your password will not include special characters")
-  }
-
-  charNumber = window.confirm("Click \"Okay\" to include numbers, otherwise click \"Cancel\"")
-  if (charNumber) {
-    window.alert("Your password will include numbers")
-  }
-  else {
-    window.alert("Your password will not include numbers")
-  }
-
-  charUpper = window.confirm("Click \"Okay\" to include uppercase letters, otherwise click \"Cancel\"")
-  if (charUpper) {
-    window.alert("Your password will include uppercase letters")
-  }
-  else {
-    window.alert("Your password will not include uppercase letters")
-  }
-
-  charLower = window.confirm("Click \"Okay\" to include lowercase letters, otherwise click \"Cancel\"")
-  if (charLower) {
-    window.alert("Your password will include lowercase letters")
-  }
-  else {
-    window.alert("Your password will not include lowercase letters")
-  }
-}
-
 var generatePassword = function () {
-  
+
+  genSpec = (writeSpec.repeat((charLength / optionsSelected) * charSpecial))
+  console.log(genSpec)
+  genNumber = (writeNumber.repeat((charLength / optionsSelected) * charNumber))
+  genUpper = (writeUpper.repeat((charLength / optionsSelected) * charUpper))
+  genLower = (writeLower.repeat((charLength / optionsSelected) * charLower))
+
   if (((charLength % optionsSelected) > 0) && (charSpecial > 0)) {
-    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeSpec.repeat(charLength % optionsSelected)))
+    genSpec = genSpec + (writeSpec.repeat(charLength % optionsSelected))
+    console.log(genSpec)
   }
   else if (((charLength % optionsSelected) > 0) && (charNumber > 0)) {
-    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeNumber.repeat(charLength % optionsSelected)))
+    genNumber = genNumber + (writeNumber.repeat(charLength % optionsSelected))
   }
   else if (((charLength % optionsSelected) > 0) && (charUpper > 0)) {
-    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeUpper.repeat(charLength % optionsSelected)))
+    genUpper = genUpper + (writeUpper.repeat(charLength % optionsSelected))
   }
   else if (((charLength % optionsSelected) > 0) && (charLower > 0)) {
-    console.log((writeSpec.repeat((charLength / optionsSelected) * charSpecial) + writeNumber.repeat((charLength / optionsSelected) * charNumber) + writeUpper.repeat((charLength / optionsSelected) * charUpper) + writeLower.repeat((charLength / optionsSelected) * charLower)) + (writeLower.repeat(charLength % optionsSelected)))
+    genLower = genLower + (writeLower.repeat(charLength % optionsSelected))
   }
+
+  return (genSpec + genNumber + genUpper + genLower)
+
 }
 
 // Write password to the #password input
 function writePassword() {
-  charLength = window.prompt("Pleae enter the number of characters; passwords must be at least 8 and no more than 128 characters.");
+  charLength = window.prompt("Please enter the number of characters; passwords must be at least 8 and no more than 128 characters.");
 
   charLength = Number(charLength)
 
-  if (charLength >=8 && charLength <=128) {
+  if (charLength >= 8 && charLength <= 128) {
     window.alert("Your password will be " + charLength + " characters.")
 
-    window.alert("Your password must include at least one of the following: special characters, numbers, uppercase letters, and lowercase letters.")
+    window.alert("Please confirm if you want special characters, numbers, uppercase letters, and lowercase letters included in your password. Your password must include at least one set.")
 
-    CharSetFuction()
+    charSpecial = window.confirm("Click \"Okay\" to include special characters, otherwise click \"Cancel\"")
+
+    charNumber = window.confirm("Click \"Okay\" to include numbers, otherwise click \"Cancel\"")
+
+    charUpper = window.confirm("Click \"Okay\" to include uppercase letters, otherwise click \"Cancel\"")
+
+    charLower = window.confirm("Click \"Okay\" to include lowercase letters, otherwise click \"Cancel\"")
+
+    if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
+      window.alert("Your password must include at least one set of special characters, numbers, uppercase letters or lowercase letters. Click \"Generate Password\" to try again.")
+    }
 
     charSpecial = Number(charSpecial)
     charNumber = Number(charNumber)
@@ -91,20 +82,15 @@ function writePassword() {
     optionsSelected = (charSpecial + charNumber + charUpper + charLower)
 
     generatePassword()
-
-    if ((!charSpecial) && (!charNumber) && (!charUpper) && (!charLower)) {
-      window.alert("Your password must include at least one set of special characters, numbers, uppercase letters or lowercase letters. Click \"Generate Password\" to try again.")
-    } 
   }
   else {
-    window.confirm(charLength + " is an invalid value. Click \"Generate Password\" to try again.")
+    window.alert(charLength + " is an invalid value. Click \"Generate Password\" to try again.")
   }
 
   var password = generatePassword()
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 generateBtn.addEventListener("click", writePassword);
